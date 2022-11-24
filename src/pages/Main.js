@@ -14,8 +14,6 @@ function Main(props) {
       <h1 className="text-title">WebStorageService</h1>
       <Dropzone />
 
-      <hr />
-
       <div className="cloud">
         <table className="table">
           <thead>
@@ -23,14 +21,14 @@ function Main(props) {
               <th>이름</th>
               <th>크기</th>
               <th>수정된 날짜</th>
-              <th>액션</th>
+              <th>기능</th>
             </tr>
           </thead>
-          {itemList.map((value) => (
-            <tr>
+          {itemList.map((value, index) => (
+            <tr key={index}>
               <td>{value.fileName}</td>
-              <td>{value.size}</td>
-              <td>{value.date}</td>
+              <td className="text-center">{value.size}</td>
+              <td className="text-center">{value.date}</td>
             </tr>
           ))}
         </table>
