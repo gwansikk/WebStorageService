@@ -11,8 +11,8 @@ function Dropzone() {
   const onClickUpload = () => {
     const formData = new FormData();
 
-    acceptedFiles.forEach((file) => {
-      formData.append("files", file);
+    acceptedFiles.forEach((file, index) => {
+      formData.append(`files`, file, encodeURIComponent(file.name));
     });
 
     fetch("http://localhost:13621/files", {
@@ -20,7 +20,6 @@ function Dropzone() {
       body: formData,
     })
       .then((response) => response.json())
-      .then((success) => {})
       .catch((error) => console.log(error));
   };
 
@@ -28,7 +27,7 @@ function Dropzone() {
     <>
       <div {...getRootProps()} className="cloud text-center">
         <input {...getInputProps()} />
-        <p className="font-xl">{isDragActive ? "파일 받을 준비!" : "파일을 올려주세요"}</p>
+        <p className="font-xl">{isDragActive ? "파일을 받을 준비가 되었습니다!" : "여기에 파일을 올려주세요!"}</p>
       </div>
       <button onClick={onClickUpload}>업로드</button>
       <div className="cloud">
