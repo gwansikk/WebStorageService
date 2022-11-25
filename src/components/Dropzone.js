@@ -9,17 +9,19 @@ function Dropzone() {
   const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({ onDrop });
 
   const onClickUpload = () => {
-    acceptedFiles.forEach((file) => {
-      const reader = new FileReader();
+    const formData = new FormData();
 
-      reader.onabort = () => console.log("file reading was aborted");
-      reader.onerror = () => console.log("file reading has failed");
-      reader.onload = () => {
-        const binaryStr = reader.result;
-        console.log(binaryStr);
-      };
-      reader.readAsArrayBuffer(file);
+    acceptedFiles.forEach((file) => {
+      formData.append("files", file);
     });
+
+    fetch("http://localhost:13621/files", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((success) => {})
+      .catch((error) => console.log(error));
   };
 
   return (

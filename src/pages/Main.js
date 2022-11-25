@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import Dropzone from "../components/Dropzone";
 
@@ -24,13 +23,15 @@ function Main(props) {
               <th>기능</th>
             </tr>
           </thead>
-          {itemList.map((value, index) => (
-            <tr key={index}>
-              <td>{value.fileName}</td>
-              <td className="text-center">{value.size}</td>
-              <td className="text-center">{value.date}</td>
-            </tr>
-          ))}
+          <tbody>
+            {itemList.map((value, index) => (
+              <tr key={index}>
+                <td>{value.fileName}</td>
+                <td className="text-center">{value.size}</td>
+                <td className="text-center">{value.date}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </div>
