@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Dropzone from "../components/Dropzone";
-
-import dataJson from "../data/temp.json";
 
 Main.propTypes = {};
 
 function Main(props) {
-  const itemList = dataJson.data;
+  const [fileList, setFileList] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:13621/", {
+      method: "GET",
+    }).then((response) => {
+      console.log(response);
+      setFileList(response.files);
+    });
+  });
+
   return (
     <div className="container">
       <h1 className="text-title">WebStorageService</h1>
@@ -24,13 +32,11 @@ function Main(props) {
             </tr>
           </thead>
           <tbody>
-            {itemList.map((value, index) => (
+            {/* {fileList.map((value, index) => (
               <tr key={index}>
-                <td>{value.fileName}</td>
-                <td className="text-center">{value.size}</td>
-                <td className="text-center">{value.date}</td>
+                <td>{value}</td>
               </tr>
-            ))}
+            ))} */}
           </tbody>
         </table>
       </div>
