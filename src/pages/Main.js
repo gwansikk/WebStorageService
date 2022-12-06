@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import axios from "axios";
 import Dropzone from "../components/Dropzone";
 
 Main.propTypes = {};
@@ -7,14 +7,15 @@ Main.propTypes = {};
 function Main(props) {
   const [fileList, setFileList] = useState([]);
 
+  const loadData = async () => {
+    const response = await axios.get("http://localhost:13621/");
+    console.log(response);
+    setFileList(response.data.files);
+  };
+
   useEffect(() => {
-    fetch("http://localhost:13621/", {
-      method: "GET",
-    }).then((response) => {
-      console.log(response);
-      setFileList(response.files);
-    });
-  });
+    loadData();
+  }, []);
 
   return (
     <div className="container">
@@ -32,11 +33,11 @@ function Main(props) {
             </tr>
           </thead>
           <tbody>
-            {/* {fileList.map((value, index) => (
+            {fileList.map((value, index) => (
               <tr key={index}>
                 <td>{value}</td>
               </tr>
-            ))} */}
+            ))}
           </tbody>
         </table>
       </div>

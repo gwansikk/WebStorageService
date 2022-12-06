@@ -1,23 +1,42 @@
 import React from "react";
 import { useDropzone } from "react-dropzone";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function Dropzone() {
-  // onDrop하면 카운트 다운해서 5초후 자동으로 파일 업로드 취소하려면 취소버튼
+  // TODO: onDrop하면 카운트 다운해서 5초후 자동으로 파일 업로드 취소하려면 취소버튼
   const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone();
+  const MySwal = withReactContent(Swal);
 
   const onClickUpload = () => {
-    const formData = new FormData();
+    MySwal.fire({
+      title: "Upload",
+      text: "업로드를 하시겠습니까?",
+      confirmButtonText: "확인",
+      showCancelButton: true,
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const formData = new FormData();
 
-    acceptedFiles.forEach((file, index) => {
-      formData.append(`files`, file, encodeURIComponent(file.name));
+        acceptedFiles.forEach((file, index) => {
+          formData.append(`files`, file, encodeURIComponent(file.name));
+        });
+
+        fetch("http://localhost:13621/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
+            response.json();
+            MySwal.fire("성공!", "업로드에 성공했습니다.", "success");
+          })
+          .catch((error) => {
+            console.log(error);
+            MySwal.fire("실패!", "업로드에 실패했습니다.", "error");
+          });
+      }
     });
-
-    fetch("http://localhost:13621/upload", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .catch((error) => console.log(error));
   };
 
   return (
