@@ -8,9 +8,11 @@ function Main(props) {
   const [fileList, setFileList] = useState([]);
 
   const loadData = async () => {
+    const fileFilter = [".DS_Store"]; //  파일 필터
+
     const response = await axios.get("http://localhost:13621/");
-    console.log(response);
-    setFileList(response.data.files);
+    const data = response.data.files.filter((i) => !fileFilter.includes(i));
+    setFileList(data);
   };
 
   useEffect(() => {

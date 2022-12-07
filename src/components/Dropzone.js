@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import { useDropzone } from "react-dropzone";
 import Swal from "sweetalert2";
@@ -23,12 +24,12 @@ function Dropzone() {
           formData.append(`files`, file, encodeURIComponent(file.name));
         });
 
-        fetch("http://localhost:13621/upload", {
+        axios({
+          url: "http://localhost:13621/upload",
           method: "POST",
-          body: formData,
+          data: formData,
         })
-          .then((response) => {
-            response.json();
+          .then(() => {
             MySwal.fire("성공!", "업로드에 성공했습니다.", "success");
           })
           .catch((error) => {
