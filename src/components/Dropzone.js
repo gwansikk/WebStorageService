@@ -24,12 +24,18 @@ function Dropzone() {
           formData.append(`files`, file, encodeURIComponent(file.name));
         });
 
-        axios({
-          url: "http://localhost:13621/upload",
-          method: "POST",
-          data: formData,
-        })
-          .then(() => {
+        const options = {
+          onUploadProgress: (progressEvent) => {
+            const { loaded, total } = progressEvent;
+            let percent = Math.floor((loaded * 100) / total);
+            console.log(`${loaded}kb of ${total}kb | ${percent}%`);
+          },
+        };
+
+        axios
+          .post("http://localhost:13621/upload", formData, options)
+          .then((response) => {
+            console.log(response);
             MySwal.fire("성공!", "업로드에 성공했습니다.", "success");
           })
           .catch((error) => {
