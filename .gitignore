@@ -1,7 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode,react
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,visualstudiocode,react
 
-server/upload/*
+upload/*
+build
+*.zip
+.env
 
 ### macOS ###
 # General

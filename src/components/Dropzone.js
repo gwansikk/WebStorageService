@@ -33,7 +33,7 @@ function Dropzone() {
         };
 
         axios
-          .post("http://localhost:13621/upload", formData, options)
+          .post(process.env.REACT_APP_API_URL + "/upload", formData, options)
           .then((response) => {
             console.log(response);
             MySwal.fire("성공!", "업로드에 성공했습니다.", "success");

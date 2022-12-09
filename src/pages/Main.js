@@ -10,7 +10,7 @@ function Main(props) {
   const loadData = async () => {
     const fileFilter = [".DS_Store"]; //  파일 필터
 
-    const response = await axios.get("http://localhost:13621/");
+    const response = await axios.get(process.env.REACT_APP_API_URL);
     const data = response.data.files.filter((i) => !fileFilter.includes(i));
     setFileList(data);
   };
