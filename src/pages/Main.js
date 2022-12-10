@@ -38,6 +38,9 @@ function Main(props) {
             {fileList.map((value, index) => (
               <tr key={index}>
                 <td>{value}</td>
+                <td>KB</td>
+                <td>DATE</td>
+                <td></td>
               </tr>
             ))}
           </tbody>
