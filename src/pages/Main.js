@@ -8,10 +8,12 @@ function Main(props) {
   const [fileList, setFileList] = useState([]);
 
   const loadData = async () => {
-    const fileFilter = [".DS_Store"]; //  파일 필터
+    // const fileFilter = [".DS_Store"]; //  파일 필터
 
     const response = await axios.get(process.env.REACT_APP_API_URL);
-    const data = response.data.files.filter((i) => !fileFilter.includes(i));
+    // const data = response.data.files.filter((i) => !fileFilter.includes(i));
+    const data = response.data.files;
+
     setFileList(data);
   };
 
@@ -37,8 +39,8 @@ function Main(props) {
           <tbody>
             {fileList.map((value, index) => (
               <tr key={index}>
-                <td>{value}</td>
-                <td>KB</td>
+                <td>{value[0]}</td>
+                <td>{value[1]}</td>
                 <td>DATE</td>
                 <td></td>
               </tr>
