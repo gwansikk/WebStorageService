@@ -12,7 +12,7 @@ function Main(props) {
 
     const response = await axios.get(process.env.REACT_APP_API_URL);
     // const data = response.data.files.filter((i) => !fileFilter.includes(i));
-    const data = response.data.files;
+    const data = response.data.data;
 
     setFileList(data);
   };
@@ -32,7 +32,7 @@ function Main(props) {
             <tr>
               <th>이름</th>
               <th>크기</th>
-              <th>수정된 날짜</th>
+              <th>생성 날짜</th>
               <th>기능</th>
             </tr>
           </thead>
@@ -40,9 +40,9 @@ function Main(props) {
             {fileList.map((value, index) => (
               <tr key={index}>
                 <td>{value[0]}</td>
-                <td>{value[1]}</td>
-                <td>DATE</td>
-                <td></td>
+                <td className="text-center">{value[1]}</td>
+                <td className="text-center">{value[2]}</td>
+                <td className="text-center"></td>
               </tr>
             ))}
           </tbody>
