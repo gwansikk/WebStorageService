@@ -9,9 +9,9 @@ function Main(props) {
 
   const loadData = async () => {
     // const fileFilter = [".DS_Store"]; //  파일 필터
+    // const data = response.data.files.filter((i) => !fileFilter.includes(i));
 
     const response = await axios.get(process.env.REACT_APP_API_URL);
-    // const data = response.data.files.filter((i) => !fileFilter.includes(i));
     const data = response.data.data;
 
     setFileList(data);
