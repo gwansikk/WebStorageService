@@ -39,7 +39,7 @@ function Main(props) {
           <tbody>
             {fileList.map((value, index) => (
               <tr key={index}>
-                <td>{value[0]}</td>
+                <td>{value[0].slice(14)}</td>
                 <td className="text-center">{value[1]}</td>
                 <td className="text-center">{value[2]}</td>
                 <td className="text-center"></td>
