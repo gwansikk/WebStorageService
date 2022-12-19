@@ -37,6 +37,7 @@ function Dropzone() {
           .then((response) => {
             console.log(response);
             MySwal.fire("성공!", "업로드에 성공했습니다.", "success");
+            // Main.loadData();
           })
           .catch((error) => {
             console.log(error);

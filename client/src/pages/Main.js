@@ -12,9 +12,32 @@ function Main(props) {
     // const data = response.data.files.filter((i) => !fileFilter.includes(i));
 
     const response = await axios.get(process.env.REACT_APP_API_URL);
-    const data = response.data.data;
+    setFileList(response.data.data);
+  };
 
-    setFileList(data);
+  const downloadFile = (file) => {
+    const url = process.env.REACT_APP_API_URL + "/files/" + file;
+
+    fetch(url, { method: "GET" })
+      .then((res) => {
+        return res.blob();
+      })
+      .then((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "파일명";
+        document.body.appendChild(a);
+        a.click();
+        setTimeout((_) => {
+          window.URL.revokeObjectURL(url);
+        }, 60000);
+        a.remove();
+        // setOpen(false);
+      })
+      .catch((err) => {
+        console.error("err: ", err);
+      });
   };
 
   useEffect(() => {
@@ -42,7 +65,9 @@ function Main(props) {
                 <td>{value[0].slice(14)}</td>
                 <td className="text-center">{value[1]}</td>
                 <td className="text-center">{value[2]}</td>
-                <td className="text-center"></td>
+                <td className="text-center">
+                  <button onClick={() => downloadFile(value[0])}>-</button>
+                </td>
               </tr>
             ))}
           </tbody>
