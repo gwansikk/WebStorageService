@@ -11,15 +11,15 @@ const upload = require("./router/upload");
 const app = express();
 const port = process.env.API_PORT || 13621;
 
-app.use(cors());
-app.use(helmet());
+// app.use(cors());
+app.use(helmet.xssFilter());
 
 app.use("/api", manager);
 app.use("/api/upload", upload);
 
 app.use(express.static(path.join(__dirname, "client/build")));
-app.get("*", function (request, response) {
-  response.sendFile(path.join(__dirname, "client/build/index.html"));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/build/index.html"));
 });
 
 app.listen(port, () => {

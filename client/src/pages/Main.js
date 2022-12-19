@@ -46,7 +46,6 @@ function Main(props) {
 
   return (
     <div className="container">
-      <h1 className="text-title">WebStorageService</h1>
       <Dropzone />
 
       <div className="cloud">
