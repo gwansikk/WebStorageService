@@ -5,8 +5,9 @@ const helmet = require("helmet");
 const cors = require("cors");
 require("dotenv").config();
 
-const manager = require("./router/manager");
+const find = require("./router/find");
 const upload = require("./router/upload");
+const download = require("./router/download");
 
 const app = express();
 const port = process.env.API_PORT || 13621;
@@ -14,7 +15,8 @@ const port = process.env.API_PORT || 13621;
 // app.use(cors());
 app.use(helmet.xssFilter());
 
-app.use("/api", manager);
+app.use("/api", find);
+app.use("/api/download", download);
 app.use("/api/upload", upload);
 
 app.use(express.static(path.join(__dirname, "client/build")));

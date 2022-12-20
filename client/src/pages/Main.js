@@ -16,9 +16,9 @@ function Main(props) {
   };
 
   const downloadFile = (file) => {
-    const url = process.env.REACT_APP_API_URL + "/files/" + file;
+    const fileURL = process.env.REACT_APP_API_URL + "/files/" + file;
 
-    fetch(url, { method: "GET" })
+    fetch(fileURL, { method: "GET" })
       .then((res) => {
         return res.blob();
       })
@@ -26,14 +26,12 @@ function Main(props) {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "파일명";
+        a.download = file;
         document.body.appendChild(a);
         a.click();
-        setTimeout((_) => {
-          window.URL.revokeObjectURL(url);
-        }, 60000);
-        a.remove();
-        // setOpen(false);
+
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
       })
       .catch((err) => {
         console.error("err: ", err);
